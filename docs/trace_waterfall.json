@@ -1,29 +1,122 @@
 [
   {
     "step": 1,
-    "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
+    "query": "Chào bạn, bạn có thể giới thiệu chính sách nghỉ phép cơ bản của VinFast không?",
     "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
+    "thought": "Gemini phản hồi trực tiếp bằng văn bản (không cần gọi công cụ).",
+    "output": "Chào bạn, dưới đây là thông tin chung về chính sách nghỉ phép cơ bản dành cho cán bộ nhân viên (CBNV) tại VinFast:\n\n1. **Nghỉ phép năm (Phép hưởng nguyên lương):**\n   * **Số ngày phép tiêu chuẩn:** CBNV làm việc đủ 12 tháng được hưởng 12 ngày phép năm.\n   * **Thâm niên:** CBNV cứ có đủ 05 năm làm việc cho Tập đoàn/Công ty thì số ngày nghỉ phép năm được tăng thêm tương ứng 01 ngày.\n   * **Quy trình xin nghỉ:** Nhân viên cần gửi đơn xin nghỉ phép qua hệ thống nhân sự trước thời gian nghỉ theo quy định để Quản lý trực tiếp phê duyệt.\n\n2. **Nghỉ lễ, Tết (Hưởng nguyên lương):**\n   * Tuân thủ theo đúng quy định của Luật Lao động Việt Nam (Tết Dương lịch, Tết Âm lịch, Ngày Chiến thắng 30/4, Ngày Quốc tế Lao động 1/5, Quốc khánh 2/9, Giỗ Tổ Hùng Vương).\n\n3. **Nghỉ việc riêng có hưởng lương:**\n   * **Kết hôn:** 03 ngày.\n   * **Con kết hôn:** 01 ngày.\n   * **Bố/mẹ (cả bên vợ/chồng), vợ/chồng, con chết:** 03 ngày.\n\n4. **Nghỉ không hưởng lương:**\n   * CBNV có thể thỏa thuận với Công ty để nghỉ không hưởng lương trong các trường hợp có lý do chính đáng và được Quản lý trực tiếp/Khối Nhân sự phê duyệt.\n\n5. **Nghỉ BHXH (Ôm đau, Thai sản, Tai nạn lao động):**\n   * Hưởng chế độ theo quy định hiện hành của Luật Bảo hiểm xã hội.\n\n---\n\n*Nếu bạn muốn tra cứu số ngày phép còn lại của bản thân hoặc đăng ký nghỉ phép, vui lòng cung cấp **Mã nhân viên (ví dụ: NV2026001)** để mình hỗ trợ nhé!*",
+    "latency_ms": 4437.59
   },
   {
     "step": 1,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Hãy tra cứu thông tin nhân sự của nhân viên NV2026001.",
     "action_type": "TOOL_EXECUTION",
-    "tool_name": "academic_query",
+    "tool_name": "hr_query",
     "arguments": {
-      "student_id": "SV2026001"
+      "employee_id": "NV2026001"
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "employee_id": "NV2026001",
+      "data": {
+        "full_name": "Nguyễn Văn An",
+        "department": "Sản xuất - Nhà máy VinFast Hải Phòng",
+        "remaining_leave_days": 8,
+        "insurance_plan": "Bảo hiểm sức khỏe cao cấp VFS Care+",
+        "email": "an.nv@vinfast.vn",
+        "status": "Đang làm việc",
+        "manager": "Chị Phạm Thị C (Trưởng phòng Nhân sự)"
+      }
+    },
+    "latency_ms": 1932.04
   },
   {
     "step": 2,
-    "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
+    "query": "Hãy tra cứu thông tin nhân sự của nhân viên NV2026001.",
     "action_type": "FINAL_ANSWER",
     "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
+    "output": "Kết quả tra cứu cho nhân viên NV2026001 (Nguyễn Văn An): Phòng ban Sản xuất - Nhà máy VinFast Hải Phòng, Số ngày phép còn lại: 8, Bảo hiểm: Bảo hiểm sức khỏe cao cấp VFS Care+, Trạng thái: Đang làm việc, Quản lý: Chị Phạm Thị C (Trưởng phòng Nhân sự).",
+    "latency_ms": 10.0
+  },
+  {
+    "step": 1,
+    "query": "Hãy tạo đơn xin nghỉ phép cho nhân viên NV2026001 vào ngày 20/09/2026 vì lý do khám sức khỏe định kỳ.",
+    "action_type": "TOOL_EXECUTION",
+    "tool_name": "submit_leave_request",
+    "arguments": {
+      "reason": "khám sức khỏe định kỳ",
+      "employee_id": "NV2026001",
+      "leave_date": "20/09/2026"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "leave_request_id": "LR-NV2026001-99",
+      "employee_id": "NV2026001",
+      "leave_date": "20/09/2026",
+      "reason": "khám sức khỏe định kỳ",
+      "message": "Đã tạo đơn xin nghỉ phép cho nhân viên NV2026001 vào ngày 20/09/2026 (Lý do: khám sức khỏe định kỳ). Đơn đang chờ quản lý phê duyệt."
+    },
+    "latency_ms": 1933.45
+  },
+  {
+    "step": 2,
+    "query": "Hãy tạo đơn xin nghỉ phép cho nhân viên NV2026001 vào ngày 20/09/2026 vì lý do khám sức khỏe định kỳ.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Đã tạo đơn xin nghỉ phép cho nhân viên NV2026001 vào ngày 20/09/2026 (Lý do: khám sức khỏe định kỳ). Đơn đang chờ quản lý phê duyệt.",
+    "latency_ms": 10.0
+  },
+  {
+    "step": 1,
+    "query": "Trước tiên hãy tra cứu xem nhân viên NV2026002 còn bao nhiêu ngày phép, sau đó tạo giúp đơn xin nghỉ phép ngày 25/09/2026 với lý do việc gia đình.",
+    "action_type": "TOOL_EXECUTION",
+    "tool_name": "hr_query",
+    "arguments": {
+      "employee_id": "NV2026002"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "employee_id": "NV2026002",
+      "data": {
+        "full_name": "Trần Thị Bình",
+        "department": "Kinh doanh & Trải nghiệm khách hàng",
+        "remaining_leave_days": 3,
+        "insurance_plan": "Bảo hiểm sức khỏe tiêu chuẩn VFS Care",
+        "email": "binh.tt@vinfast.vn",
+        "status": "Đang làm việc",
+        "manager": "Anh Lê Văn D (Trưởng phòng Kinh doanh)"
+      }
+    },
+    "latency_ms": 1952.13
+  },
+  {
+    "step": 2,
+    "query": "Trước tiên hãy tra cứu xem nhân viên NV2026002 còn bao nhiêu ngày phép, sau đó tạo giúp đơn xin nghỉ phép ngày 25/09/2026 với lý do việc gia đình.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Kết quả tra cứu cho nhân viên NV2026002 (Trần Thị Bình): Phòng ban Kinh doanh & Trải nghiệm khách hàng, Số ngày phép còn lại: 3, Bảo hiểm: Bảo hiểm sức khỏe tiêu chuẩn VFS Care, Trạng thái: Đang làm việc, Quản lý: Anh Lê Văn D (Trưởng phòng Kinh doanh).",
+    "latency_ms": 10.0
+  },
+  {
+    "step": 1,
+    "query": "Hãy tra cứu thông tin nhân sự của nhân viên có mã NV9999999.",
+    "action_type": "TOOL_EXECUTION",
+    "tool_name": "hr_query",
+    "arguments": {
+      "employee_id": "NV9999999"
+    },
+    "observation": {
+      "status": "NOT_FOUND",
+      "message": "Không tìm thấy dữ liệu nhân viên có mã 'NV9999999'"
+    },
+    "latency_ms": 1654.11
+  },
+  {
+    "step": 2,
+    "query": "Hãy tra cứu thông tin nhân sự của nhân viên có mã NV9999999.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
+    "output": "Không tìm thấy dữ liệu nhân viên có mã 'NV9999999'",
     "latency_ms": 10.0
   }
 ]

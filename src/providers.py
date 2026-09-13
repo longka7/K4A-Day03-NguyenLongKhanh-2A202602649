@@ -36,27 +36,27 @@ class MockOfflineProvider(BaseLLMProvider):
 
     def generate_with_tools(self, prompt: str, tools_schema: List[Dict[str, Any]], system_prompt: str = "") -> Dict[str, Any]:
         prompt_lower = prompt.lower()
-        
+
         # Mô phỏng nhận diện intent gọi Tool
-        if "sv2026001" in prompt_lower and "đặt lịch" in prompt_lower:
+        if "nv2026001" in prompt_lower and ("nghỉ phép" in prompt_lower or "xin nghỉ" in prompt_lower):
             return {
                 "type": "tool_call",
-                "tool_name": "schedule_appointment",
-                "arguments": {"student_id": "SV2026001", "datetime_str": "14:00 15/09/2026", "advisor_name": "PGS.TS Nguyễn Văn A"},
-                "thought": "Người dùng yêu cầu đặt lịch hẹn tư vấn cho sinh viên SV2026001. Tôi sẽ gọi tool schedule_appointment."
+                "tool_name": "submit_leave_request",
+                "arguments": {"employee_id": "NV2026001", "leave_date": "15/09/2026", "reason": "Việc gia đình"},
+                "thought": "Người dùng yêu cầu tạo đơn xin nghỉ phép cho nhân viên NV2026001. Tôi sẽ gọi tool submit_leave_request."
             }
-        elif "sv2026001" in prompt_lower or "tra cứu" in prompt_lower:
+        elif "nv2026001" in prompt_lower or "tra cứu" in prompt_lower:
             return {
                 "type": "tool_call",
-                "tool_name": "academic_query",
-                "arguments": {"student_id": "SV2026001"},
-                "thought": "Người dùng muốn tra cứu thông tin học vụ của sinh viên SV2026001. Tôi sẽ gọi tool academic_query."
+                "tool_name": "hr_query",
+                "arguments": {"employee_id": "NV2026001"},
+                "thought": "Người dùng muốn tra cứu thông tin nhân sự của nhân viên NV2026001. Tôi sẽ gọi tool hr_query."
             }
         else:
             return {
                 "type": "text",
-                "content": f"[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-                "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool."
+                "content": f"[Mock Agent Response]: Xin chào! Chính sách VinFast quy định nhân viên chính thức được hưởng tối thiểu 12 ngày phép năm và tham gia bảo hiểm sức khỏe VFS Care.",
+                "thought": "Câu hỏi chung về chính sách nhân sự, trả lời trực tiếp không cần gọi Tool."
             }
 
 
@@ -64,7 +64,7 @@ class GeminiProvider(BaseLLMProvider):
     """Google Gemini Provider (Native Tool Calling với Google GenAI SDK)"""
     def __init__(self, api_key: str = None, model: str = None):
         self.api_key = api_key or os.getenv("GEMINI_API_KEY")
-        self.model_name = model or os.getenv("LLM_MODEL") or "gemini-2.5-flash"
+        self.model_name = model or os.getenv("LLM_MODEL") or "gemini-3.6-flash"
 
     def generate(self, prompt: str, system_prompt: str = "") -> str:
         if not self.api_key or self.api_key == "your_gemini_api_key_here":

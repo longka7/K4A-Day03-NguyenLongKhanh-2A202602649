@@ -1,0 +1,37 @@
+[
+  {
+    "id": "TC01",
+    "type": "direct_query",
+    "question": "Chào bạn, bạn có thể giới thiệu chính sách nghỉ phép cơ bản của VinFast không?",
+    "expected_behavior": "Chatbot trả lời trực tiếp từ System Prompt, không cần gọi bất kỳ Tool nào.",
+    "complexity": "Low"
+  },
+  {
+    "id": "TC02",
+    "type": "single_tool_query",
+    "question": "Hãy tra cứu thông tin nhân sự của nhân viên NV2026001.",
+    "expected_behavior": "Agent nhận diện nhu cầu tra cứu, tự động phát sinh Tool Call 'hr_query' với mã NV2026001.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC03",
+    "type": "leave_request_booking",
+    "question": "Hãy tạo đơn xin nghỉ phép cho nhân viên NV2026001 vào ngày 20/09/2026 vì lý do khám sức khỏe định kỳ.",
+    "expected_behavior": "Agent tự động phát sinh Tool Call 'submit_leave_request' với đúng employee_id, leave_date và reason.",
+    "complexity": "Medium"
+  },
+  {
+    "id": "TC04",
+    "type": "multi_step_reasoning",
+    "question": "Trước tiên hãy tra cứu xem nhân viên NV2026002 còn bao nhiêu ngày phép, sau đó tạo giúp đơn xin nghỉ phép ngày 25/09/2026 với lý do việc gia đình.",
+    "expected_behavior": "Agent thực hiện chuỗi suy luận ReAct: gọi 'hr_query' để kiểm tra ngày phép còn lại của nhân viên trước, sau đó gọi 'submit_leave_request' để tạo đơn xin nghỉ.",
+    "complexity": "High"
+  },
+  {
+    "id": "TC05",
+    "type": "edge_case_handling",
+    "question": "Hãy tra cứu thông tin nhân sự của nhân viên có mã NV9999999.",
+    "expected_behavior": "Agent nhận kết quả NOT_FOUND từ Tool và đưa ra phản hồi lịch sự, chính xác không bịa đặt dữ liệu.",
+    "complexity": "Medium"
+  }
+]
