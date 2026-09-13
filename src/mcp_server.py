@@ -63,5 +63,5 @@ if __name__ == "__main__":
     if not test_result:
         print("⏳ [TODO 2.1]: Hàm call_tool() đang trả về rỗng. Học viên hãy hoàn thiện TODO 2.1 trong 'src/mcp_server.py'!")
     else:
-        print(f"✅ [TODO 2.1]: Test dispatch tool 'academic_query' thành công:")
+        print(f"✅ [TODO 2.1]: Test dispatch tool 'hr_query' thành công:")
         print(f"   Phản hồi JSON-RPC: {json.dumps(test_result, ensure_ascii=False)}")
